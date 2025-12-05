@@ -1,0 +1,45 @@
+services:
+  # ******** Backend (Spring Boot) ********
+  backend:
+    container_name: backend
+    build:
+      context: ./cesizen
+      dockerfile: DockerFile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mydatabase
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=example
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  # ******** Database (PostgreSQL) ********
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # ******** Frontend (Angular) ********
+  frontend:
+    container_name: frontend
+    build:
+      context: ./Front
+      dockerfile: DockerFile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./Front:/home/app
+      - /home/app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
