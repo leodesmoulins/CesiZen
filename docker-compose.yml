@@ -5,23 +5,24 @@ services:
     build:
       context: ./cesizen
       dockerfile: DockerFile
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mydatabase
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=example
+    env_file:
+      - ./.env
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - db
 
   # ******** Database (PostgreSQL) ********
-  postgres:
-    container_name: postgres
-    image: postgres:13
+  db:
+    image: postgres:16
+    container_name: cesizen-postgres
+    restart: unless-stopped
+    env_file:
+      - ./.env
     environment:
-      - POSTGRES_DB=mydatabase
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=example
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -31,12 +32,12 @@ services:
   frontend:
     container_name: frontend
     build:
-      context: ./Front
+      context: ./frontend
       dockerfile: DockerFile
     ports:
       - "4200:4200"
     volumes:
-      - ./Front:/home/app
+      - ./frontend:/home/app
       - /home/app/node_modules
     depends_on:
       - backend

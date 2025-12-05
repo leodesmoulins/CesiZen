@@ -1,0 +1,17 @@
+FROM node:20
+
+# Créer le dossier app et set les droits
+WORKDIR /home/app
+
+# Installer Angular CLi globalement
+RUN npm install -g @angular/cli
+
+# Copier package.json et installer les dépendances
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Ajouter node_modules au PATH
+ENV PATH /home/app/node_modules/.bin:$PATH
+
+# Commande de lancement Angular avec polling (détecte les changements sur Mac)
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
