@@ -1,0 +1,52 @@
+services:
+  # ************ Backend (Springboot) ************
+  springboot:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATA_POSTGRESQL_URI=jdbc:postgresql://postgresdb:5432/CesiZen
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/CesiZen
+    ports:
+      - "8080:8080"
+    networks:
+      - cesi_net
+    depends_on:
+      - postgresdb
+
+  angular:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - cesi_net
+    volumes:
+      - ./frontend:/home/app
+      - /home/app/node_modules
+    depends_on:
+      - springboot
+
+  # ************ Database (PostgreSQL) ************
+  postgresdb:
+    container_name: postgresdb
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+    volumes:
+      - ./postgres_data_container:/var/lib/postgresql
+    ports:
+      - "5433:5432"
+    networks:
+      - cesi_net
+
+networks:
+  cesi_net:
+    driver: bridge

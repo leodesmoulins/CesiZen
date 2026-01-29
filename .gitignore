@@ -1,0 +1,24 @@
+# IDE files
+.vscode/
+.github/
+
+# ---- Angular / Node ----
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.angular/
+frontend/.vscode/
+
+
+# ---- Java / Spring Boot ----
+backend/.idea/
+backend/.mvn/
+backend/target/
+
+# ---- MongoDB ----
+postgre_data_container/
+
+# ---- Other ----
+doc/
+.env
+
