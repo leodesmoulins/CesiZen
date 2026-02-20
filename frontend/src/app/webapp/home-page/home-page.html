@@ -1,0 +1,295 @@
+<!-- ===== HERO ===== -->
+<section class="relative overflow-hidden px-4 py-16 md:py-24 lg:py-32">
+  <div class="absolute inset-0 -z-10">
+    <div
+      class="absolute left-1/2 top-0 h-125 w-200 -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
+    ></div>
+    <div class="absolute bottom-0 right-0 h-75 w-100 rounded-full bg-accent/10 blur-3xl"></div>
+  </div>
+
+  <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-3xl text-center">
+      <div
+        class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary"
+      >
+        <mat-icon class="text-[16px] w-4 h-4">auto_awesome</mat-icon>
+        Votre bien-être, notre priorité
+      </div>
+
+      <h1
+        class="font-display text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl text-balance"
+      >
+        Prenez soin de votre
+        <span class="text-primary">santé mentale</span>
+        au quotidien
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        CESIZen vous accompagne avec des outils concrets pour comprendre, évaluer et améliorer votre
+        bien-être mental. Diagnostics, informations et ressources, le tout dans une seule
+        application.
+      </p>
+
+      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          routerLink="/register"
+          class="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          Commencer gratuitement
+          <mat-icon class="text-[16px] w-4 h-4">arrow_forward</mat-icon>
+        </a>
+        <a
+          href="#features"
+          class="inline-flex h-11 items-center justify-center rounded-md border border-border px-6 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+        >
+          Découvrir les fonctionnalités
+        </a>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+      <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+          <mat-icon class="text-primary text-[20px] w-5 h-5">shield</mat-icon>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-card-foreground">Confidentiel</p>
+          <p class="text-xs text-muted-foreground">Vos données protégées</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/20">
+          <mat-icon class="text-accent text-[20px] w-5 h-5">favorite</mat-icon>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-card-foreground">Bienveillant</p>
+          <p class="text-xs text-muted-foreground">Sans jugement</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+          <mat-icon class="text-primary text-[20px] w-5 h-5">auto_awesome</mat-icon>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-card-foreground">Accessible</p>
+          <p class="text-xs text-muted-foreground">Pour tous, partout</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section id="features" class="px-4 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-primary">Fonctionnalités</p>
+      <h2 class="mt-2 font-display text-3xl font-bold text-foreground md:text-4xl text-balance">
+        Tout ce dont vous avez besoin pour votre bien-être
+      </h2>
+      <p class="mt-4 text-muted-foreground leading-relaxed">
+        CESIZen réunit des outils puissants et faciles à utiliser pour vous aider à prendre soin de
+        votre santé mentale.
+      </p>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      @for (feature of features; track feature.title) {
+        <div
+          class="group rounded-xl border border-border/60 bg-card p-0 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+        >
+          <div class="p-6">
+            <div
+              class="mb-2 flex h-12 w-12 items-center justify-center rounded-xl"
+              [ngClass]="feature.color"
+            >
+              <mat-icon class="text-[24px] w-6 h-6">{{ feature.icon }}</mat-icon>
+            </div>
+            <h3 class="text-lg font-semibold text-card-foreground">{{ feature.title }}</h3>
+          </div>
+          <div class="px-6 pb-6">
+            <p class="text-sm leading-relaxed text-muted-foreground">{{ feature.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="bg-muted/50 px-4 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-primary">À propos</p>
+        <h2 class="mt-2 font-display text-3xl font-bold text-foreground md:text-4xl text-balance">
+          Une plateforme pensée pour votre quotidien
+        </h2>
+        <p class="mt-4 leading-relaxed text-muted-foreground">
+          CESIZen est née de la volonté de rendre les outils de santé mentale accessibles à tous.
+          Notre mission : vous aider à mieux comprendre votre stress et à agir concrètement pour
+          votre bien-être.
+        </p>
+        <ul class="mt-8 flex flex-col gap-3">
+          @for (benefit of benefits; track benefit) {
+            <li class="flex items-center gap-3">
+              <mat-icon class="text-primary text-[20px] w-5 h-5 shrink-0">check_circle</mat-icon>
+              <span class="text-sm text-foreground">{{ benefit }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="relative">
+        <div class="overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-lg">
+          <div class="mb-4 flex items-center gap-2">
+            <div class="h-3 w-3 rounded-full bg-destructive/60"></div>
+            <div class="h-3 w-3 rounded-full bg-accent/60"></div>
+            <div class="h-3 w-3 rounded-full bg-primary/60"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="rounded-lg bg-muted p-4">
+              <p class="text-xs font-medium text-muted-foreground">Votre score de stress</p>
+              <p class="mt-1 font-display text-3xl font-bold text-primary">42/100</p>
+              <p class="mt-1 text-sm text-muted-foreground">
+                Niveau modéré - Des pistes d'amélioration existent
+              </p>
+            </div>
+            <div class="flex gap-3">
+              <div class="flex-1 rounded-lg bg-primary/5 p-3">
+                <p class="text-xs text-muted-foreground">Diagnostics</p>
+                <p class="font-display text-xl font-bold text-foreground">12</p>
+              </div>
+              <div class="flex-1 rounded-lg bg-accent/10 p-3">
+                <p class="text-xs text-muted-foreground">Articles lus</p>
+                <p class="font-display text-xl font-bold text-foreground">28</p>
+              </div>
+              <div class="flex-1 rounded-lg bg-chart-3/10 p-3">
+                <p class="text-xs text-muted-foreground">Jours actifs</p>
+                <p class="font-display text-xl font-bold text-foreground">45</p>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-muted-foreground">Progression</span>
+                <span class="font-medium text-primary">68%</span>
+              </div>
+              <div class="h-2 overflow-hidden rounded-full bg-muted">
+                <div class="h-full w-[68%] rounded-full bg-primary"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIAGNOSTIC PREVIEW ===== -->
+<section id="diagnostic" class="px-4 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div class="order-2 lg:order-1">
+        <div class="overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+          <div class="border-b border-border bg-muted/50 px-6 py-4">
+            <h3 class="font-display text-sm font-semibold text-card-foreground">
+              Questionnaire de stress - Aperçu
+            </h3>
+            <p class="mt-1 text-xs text-muted-foreground">Échelle d'Holmes et Rahe</p>
+          </div>
+          <div class="divide-y divide-border">
+            @for (q of sampleQuestions; track q.text; let i = $index) {
+              <div
+                class="flex items-center justify-between px-6 py-4 transition-colors hover:bg-muted/30"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary"
+                  >
+                    {{ i + 1 }}
+                  </div>
+                  <span class="text-sm text-card-foreground">{{ q.text }}</span>
+                </div>
+                <span class="rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
+                  {{ q.points }} pts
+                </span>
+              </div>
+            }
+          </div>
+          <div class="bg-muted/30 px-6 py-4">
+            <p class="text-center text-xs text-muted-foreground">
+              Et bien d'autres événements à évaluer...
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <p class="text-sm font-semibold uppercase tracking-wider text-primary">Diagnostic</p>
+        <h2 class="mt-2 font-display text-3xl font-bold text-foreground md:text-4xl text-balance">
+          Évaluez votre niveau de stress en quelques minutes
+        </h2>
+        <p class="mt-4 leading-relaxed text-muted-foreground">
+          Notre questionnaire, basé sur l'échelle de Holmes et Rahe, vous permet d'identifier les
+          événements de vie qui influencent votre niveau de stress. Recevez un score personnalisé et
+          des recommandations adaptées.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            routerLink="/register"
+            class="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Faire le diagnostic
+            <mat-icon class="text-[16px] w-4 h-4">arrow_forward</mat-icon>
+          </a>
+          <a
+            href="#features"
+            class="inline-flex h-11 items-center justify-center rounded-md border border-border px-6 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+          >
+            En savoir plus
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="px-4 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl">
+    <div
+      class="relative overflow-hidden rounded-3xl bg-primary px-6 py-16 text-center md:px-12 md:py-20"
+    >
+      <div class="absolute inset-0 z-0">
+        <div class="absolute left-1/4 top-0 h-50 w-75 rounded-full bg-white/5 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 h-50 w-75 rounded-full bg-white/5 blur-3xl"></div>
+      </div>
+      <div class="relative z-10">
+        <h2
+          class="mx-auto font-display text-3xl font-bold text-primary-foreground md:text-4xl text-balance"
+        >
+          Prêt à prendre soin de vous ?
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-primary-foreground/80 leading-relaxed">
+          Rejoignez CESIZen et commencez dès aujourd'hui à mieux comprendre votre santé mentale.
+          C'est gratuit et confidentiel.
+        </p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            routerLink="/register"
+            class="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-white px-6 text-sm font-medium text-primary transition-colors hover:bg-white/90"
+          >
+            Créer mon compte
+            <mat-icon class="text-[16px] w-4 h-4">arrow_forward</mat-icon>
+          </a>
+          <a
+            routerLink="/login"
+            class="inline-flex h-11 items-center justify-center rounded-md border border-white/30 px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-white/10"
+          >
+            Se connecter
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
