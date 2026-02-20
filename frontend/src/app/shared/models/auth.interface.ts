@@ -38,4 +38,5 @@ export interface User {
   lastName: string;
   active: boolean;
   roles?: string[];
+  isAdmin: boolean | null;
 }
