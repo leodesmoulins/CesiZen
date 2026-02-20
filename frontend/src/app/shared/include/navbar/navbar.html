@@ -1,0 +1,88 @@
+<header
+  class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md"
+>
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
+    <a routerLink="/" class="flex items-center gap-2">
+      <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+        <mat-icon class="text-primary-foreground !text-[20px] !w-5 !h-5">psychology</mat-icon>
+      </div>
+      <span class="font-display text-xl font-bold text-foreground">CESIZen</span>
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      <a
+        href="#features"
+        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >Fonctionnalités</a
+      >
+      <a
+        href="#about"
+        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >À propos</a
+      >
+      <a
+        href="#diagnostic"
+        class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >Diagnostic</a
+      >
+    </div>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <a
+        routerLink="/login"
+        class="inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+        >Se connecter</a
+      >
+      <a
+        routerLink="/register"
+        class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        >Commencer</a
+      >
+    </div>
+
+    <button class="md:hidden" (click)="toggleMenu()" aria-label="Toggle menu">
+      @if (mobileMenuOpen()) {
+        <mat-icon class="text-foreground">close</mat-icon>
+      } @else {
+        <mat-icon class="text-foreground">menu</mat-icon>
+      }
+    </button>
+  </nav>
+
+  @if (mobileMenuOpen()) {
+    <div class="border-t border-border bg-background px-4 py-4 md:hidden">
+      <div class="flex flex-col gap-3">
+        <a
+          href="#features"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          (click)="closeMenu()"
+          >Fonctionnalités</a
+        >
+        <a
+          href="#about"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          (click)="closeMenu()"
+          >À propos</a
+        >
+        <a
+          href="#diagnostic"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          (click)="closeMenu()"
+          >Diagnostic</a
+        >
+        <div class="flex flex-col gap-2 pt-2">
+          <a
+            routerLink="/login"
+            class="inline-flex h-9 items-center justify-center rounded-md border border-border px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted w-full"
+            >Se connecter</a
+          >
+          <a
+            routerLink="/register"
+            class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 w-full"
+            >Commencer</a
+          >
+        </div>
+      </div>
+    </div>
+  }
+</header>
