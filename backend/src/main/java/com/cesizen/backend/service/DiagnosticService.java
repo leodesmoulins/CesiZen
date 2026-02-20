@@ -167,8 +167,20 @@ public class DiagnosticService {
         DiagnosticResult result = new DiagnosticResult();
         result.setUserId(dto.getUserId());
         result.setTotalScore(dto.getTotalScore());
-        result.setCategory(dto.getCategory());
-        result.setResultText(dto.getResultText());
+        
+        // Calculer la catégorie et le texte si non fournis
+        String category = dto.getCategory();
+        if (category == null || category.isBlank()) {
+            category = getResultCategory(dto.getTotalScore());
+        }
+        result.setCategory(category);
+        
+        String resultText = dto.getResultText();
+        if (resultText == null || resultText.isBlank()) {
+            resultText = getResultText(category);
+        }
+        result.setResultText(resultText);
+        
         result.setCreatedAt(LocalDateTime.now());
 
         DiagnosticResult saved = resultRepository.save(result);

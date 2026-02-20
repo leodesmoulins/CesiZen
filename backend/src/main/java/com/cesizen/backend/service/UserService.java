@@ -204,6 +204,8 @@ public class UserService implements UserDetailsService {
         dto.setRoles(user.getRoles().stream()
                 .map(Role::getName)
                 .collect(Collectors.toSet()));
+        dto.setIsAdmin(user.getRoles().stream()
+                .anyMatch(role -> "ROLE_ADMIN".equals(role.getName())));
         return dto;
     }
 }

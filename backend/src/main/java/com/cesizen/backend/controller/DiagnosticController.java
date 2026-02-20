@@ -83,7 +83,15 @@ public class DiagnosticController {
     public ResponseEntity<List<DiagnosticResultDto>> getUserResults(
             @AuthenticationPrincipal UserDetails userDetails) {
         
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        
         User user = userService.findByEmail(userDetails.getUsername());
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
         List<DiagnosticResultDto> results = diagnosticService.getUserResults(user.getId());
         return ResponseEntity.ok(results);
     }

@@ -12,4 +12,5 @@ public class UserDto {
     private String lastName;
     private boolean isActive;
     private Set<String> roles;
+    private Boolean isAdmin;
 }
