@@ -1,0 +1,138 @@
+<div>
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h2 class="text-lg font-semibold text-foreground">Configuration du diagnostic</h2>
+      <p class="text-sm text-muted-foreground">Gérez les événements et leurs points associés.</p>
+    </div>
+    <button
+      (click)="openNewForm()"
+      class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-teal-600 px-4 text-sm font-medium text-white transition-colors hover:bg-teal-700"
+    >
+      <mat-icon class="!text-[16px] !w-4 !h-4">add</mat-icon>
+      Nouvel événement
+    </button>
+  </div>
+
+  @if (showForm()) {
+    <div class="mb-6 rounded-xl border border-border bg-card p-6">
+      <h3 class="mb-4 text-base font-semibold text-card-foreground">
+        {{ editingId() ? 'Modifier la question' : 'Nouvelle question' }}
+      </h3>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-foreground">Événement</label>
+          <input
+            type="text"
+            [(ngModel)]="formData.eventName"
+            class="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-ring focus:ring-2 focus:ring-ring/20"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium text-foreground">Points</label>
+            <input
+              type="number"
+              [(ngModel)]="formData.points"
+              class="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-ring focus:ring-2 focus:ring-ring/20"
+            />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-medium text-foreground">Ordre</label>
+            <input
+              type="number"
+              [(ngModel)]="formData.order"
+              class="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-ring focus:ring-2 focus:ring-ring/20"
+            />
+          </div>
+        </div>
+        <div class="flex items-center justify-end gap-3">
+          <button
+            (click)="cancelForm()"
+            class="inline-flex h-9 items-center rounded-md border border-border px-4 text-sm font-medium text-foreground hover:bg-muted"
+          >
+            Annuler
+          </button>
+          <button
+            (click)="saveQuestion()"
+            class="inline-flex h-9 items-center gap-2 rounded-md bg-teal-600 px-4 text-sm font-medium text-white hover:bg-teal-700"
+          >
+            <mat-icon class="!text-[16px] !w-4 !h-4">save</mat-icon>
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (isLoading()) {
+    <div class="flex items-center justify-center py-20">
+      <div
+        class="h-8 w-8 animate-spin rounded-full border-2 border-teal-600 border-t-transparent"
+      ></div>
+    </div>
+  } @else {
+    <div class="rounded-xl border border-border bg-card">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border bg-gray-50">
+              <th class="px-4 py-3 text-left font-medium text-gray-600">Evenement</th>
+              <th class="px-4 py-3 text-left font-medium text-gray-600">Points</th>
+              <th class="px-4 py-3 text-left font-medium text-gray-600">Statut</th>
+              <th class="px-4 py-3 text-right font-medium text-gray-600">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (q of questions(); track q.id) {
+              <tr class="border-b border-border last:border-0 hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-3 font-medium text-gray-900">{{ q.eventName }}</td>
+                <td class="px-4 py-3">
+                  <span
+                    class="rounded-full bg-teal-100 px-3 py-1 text-xs font-medium text-teal-700"
+                    >{{ q.points }}</span
+                  >
+                </td>
+                <td class="px-4 py-3">
+                  <span
+                    class="rounded-full px-3 py-1 text-xs font-medium"
+                    [class.bg-teal-100]="q.isActive"
+                    [class.text-teal-600]="q.isActive"
+                    [class.bg-gray-100]="!q.isActive"
+                    [class.text-gray-600]="!q.isActive"
+                  >
+                    {{ q.isActive ? 'Actif' : 'Inactif' }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button
+                      (click)="editQuestion(q)"
+                      class="inline-flex h-8 w-8 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                      title="Voir"
+                    >
+                      <mat-icon class="!text-[18px] !w-[18px] !h-[18px]">visibility</mat-icon>
+                    </button>
+                    <button
+                      (click)="editQuestion(q)"
+                      class="inline-flex h-8 w-8 items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                      title="Modifier"
+                    >
+                      <mat-icon class="!text-[18px] !w-[18px] !h-[18px]">edit</mat-icon>
+                    </button>
+                    <button
+                      (click)="deleteQuestion(q.id)"
+                      class="inline-flex h-8 w-8 items-center justify-center rounded-md text-red-400 hover:bg-red-50 hover:text-red-600"
+                      title="Supprimer"
+                    >
+                      <mat-icon class="!text-[18px] !w-[18px] !h-[18px]">delete</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

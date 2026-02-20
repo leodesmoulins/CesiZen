@@ -1,0 +1,81 @@
+<div class="flex flex-col">
+  <app-dashboard-header title="Diagnostic"></app-dashboard-header>
+  <div class="flex-1 p-4 md:p-6">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-8 text-center">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10"
+        >
+          <mat-icon class="text-primary !text-[32px] !w-8 !h-8">assignment_turned_in</mat-icon>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-foreground">Diagnostic de stress</h2>
+        <p class="mt-2 text-muted-foreground leading-relaxed">
+          Basé sur l'échelle de Holmes et Rahe, ce questionnaire évalue votre niveau de stress en
+          fonction des événements de vie que vous avez vécu au cours des 12 derniers mois.
+        </p>
+      </div>
+
+      <div class="mb-6 rounded-xl border border-border bg-card">
+        <div class="p-6">
+          <h3 class="text-base font-semibold text-card-foreground">Comment ça marche ?</h3>
+        </div>
+        <div class="px-6 pb-6 flex flex-col gap-4">
+          <div class="flex items-start gap-3">
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary"
+            >
+              1
+            </div>
+            <div>
+              <p class="text-sm font-medium text-card-foreground">Parcourez la liste</p>
+              <p class="text-xs text-muted-foreground">43 événements de vie classés par impact</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary"
+            >
+              2
+            </div>
+            <div>
+              <p class="text-sm font-medium text-card-foreground">Cochez les événements vécus</p>
+              <p class="text-xs text-muted-foreground">Au cours des 12 derniers mois</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary"
+            >
+              3
+            </div>
+            <div>
+              <p class="text-sm font-medium text-card-foreground">Obtenez votre score</p>
+              <p class="text-xs text-muted-foreground">Avec des recommandations personnalisées</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-6 rounded-xl border border-accent/20 bg-accent/5">
+        <div class="flex items-start gap-3 p-4">
+          <mat-icon class="mt-0.5 text-accent !text-[20px] !w-5 !h-5 shrink-0">warning</mat-icon>
+          <div>
+            <p class="text-sm font-medium text-card-foreground">Important</p>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Ce diagnostic est un outil d'auto-évaluation et ne remplace pas un avis médical. En
+              cas de détresse, consultez un professionnel de santé.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <a
+        routerLink="/diagnostic/questionnaire"
+        class="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-primary text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+      >
+        Commencer le diagnostic
+        <mat-icon class="!text-[16px] !w-4 !h-4">chevron_right</mat-icon>
+      </a>
+    </div>
+  </div>
+</div>

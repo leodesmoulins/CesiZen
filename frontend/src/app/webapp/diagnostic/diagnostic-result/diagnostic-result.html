@@ -1,0 +1,85 @@
+<div class="flex flex-col">
+  <app-dashboard-header title="Diagnostic"></app-dashboard-header>
+  <div class="flex-1 p-4 md:p-6">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-8 text-center">
+        <h2 class="font-display text-3xl font-bold text-foreground">Vos résultats</h2>
+        <p class="mt-2 text-muted-foreground">
+          Voici votre score de stress et nos recommandations.
+        </p>
+      </div>
+
+      <div class="mb-6 rounded-xl border border-border bg-card">
+        <div class="p-6 text-center">
+          <div
+            class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl"
+            [ngClass]="level().bg"
+          >
+            <mat-icon [ngClass]="level().color" class="!text-[40px] !w-10 !h-10">{{
+              level().icon
+            }}</mat-icon>
+          </div>
+          <p class="font-display text-5xl font-bold text-foreground">{{ totalScore() }}</p>
+          <p class="mt-1 text-sm text-muted-foreground">points</p>
+          <div
+            class="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold"
+            [ngClass]="[level().bg, level().color]"
+          >
+            Niveau : {{ level().label }}
+          </div>
+          <p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+            {{ level().description }}
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-6 rounded-xl border border-border bg-card">
+        <div class="p-6">
+          <h3 class="text-base font-semibold text-card-foreground">Échelle de référence</h3>
+        </div>
+        <div class="px-6 pb-6 flex flex-col gap-3">
+          <div class="flex items-center justify-between rounded-lg bg-primary/5 p-3">
+            <span class="text-sm text-foreground">0 - 150 points</span>
+            <span class="text-sm font-medium text-primary">Stress faible</span>
+          </div>
+          <div class="flex items-center justify-between rounded-lg bg-accent/10 p-3">
+            <span class="text-sm text-foreground">151 - 300 points</span>
+            <span class="text-sm font-medium text-accent">Stress modéré</span>
+          </div>
+          <div class="flex items-center justify-between rounded-lg bg-destructive/5 p-3">
+            <span class="text-sm text-foreground">301+ points</span>
+            <span class="text-sm font-medium text-destructive">Stress élevé</span>
+          </div>
+        </div>
+      </div>
+
+      @if (selectedEventsDetails().length > 0) {
+        <div class="mb-6 rounded-xl border border-border bg-card">
+          <div class="p-6">
+            <h3 class="text-base font-semibold text-card-foreground">
+              Événements sélectionnés ({{ selectedEventsDetails().length }})
+            </h3>
+          </div>
+          <div class="px-6 pb-6">
+            <div class="flex flex-col gap-2">
+              @for (event of selectedEventsDetails(); track event.id) {
+                <div class="flex items-center justify-between rounded-lg bg-muted/50 px-3 py-2">
+                  <span class="text-sm text-foreground">{{ event.eventName }}</span>
+                  <span class="text-xs font-medium text-primary">{{ event.points }} pts</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <button
+        (click)="resetDiagnostic()"
+        class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-border text-sm font-medium text-foreground transition-colors hover:bg-muted"
+      >
+        <mat-icon class="!text-[16px] !w-4 !h-4">replay</mat-icon>
+        Refaire le diagnostic
+      </button>
+    </div>
+  </div>
+</div>

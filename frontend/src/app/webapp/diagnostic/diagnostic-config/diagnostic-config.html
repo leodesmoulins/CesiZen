@@ -1,0 +1,140 @@
+<div class="flex flex-col">
+  <app-dashboard-header title="Configuration diagnostic"></app-dashboard-header>
+  <div class="flex-1 p-4 md:p-6">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-6">
+        <h2 class="text-lg font-semibold text-foreground">Seuils de score</h2>
+        <p class="text-sm text-muted-foreground">
+          Configurez les seuils et textes des niveaux de stress
+        </p>
+      </div>
+
+      @if (isLoading()) {
+        <div class="flex items-center justify-center py-20">
+          <div
+            class="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          ></div>
+        </div>
+      } @else {
+        <div class="flex flex-col gap-6">
+          <!-- Low Level -->
+          <div class="rounded-xl border border-border bg-card p-6">
+            <div class="mb-4 flex items-center gap-2">
+              <div class="h-3 w-3 rounded-full bg-primary"></div>
+              <h3 class="text-sm font-semibold text-card-foreground">Niveau faible</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-muted-foreground">Score min</label>
+                <input
+                  type="number"
+                  [(ngModel)]="formData.minScoreLow"
+                  class="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring"
+                />
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-muted-foreground">Score max</label>
+                <input
+                  type="number"
+                  [(ngModel)]="formData.maxScoreLow"
+                  class="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring"
+                />
+              </div>
+            </div>
+            <div class="mt-3 flex flex-col gap-1.5">
+              <label class="text-xs font-medium text-muted-foreground"
+                >Texte de r\u00e9sultat</label
+              >
+              <textarea
+                [(ngModel)]="formData.textLow"
+                rows="2"
+                class="rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-ring"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Medium Level -->
+          <div class="rounded-xl border border-border bg-card p-6">
+            <div class="mb-4 flex items-center gap-2">
+              <div class="h-3 w-3 rounded-full bg-accent"></div>
+              <h3 class="text-sm font-semibold text-card-foreground">Niveau mod\u00e9r\u00e9</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-muted-foreground">Score min</label>
+                <input
+                  type="number"
+                  [(ngModel)]="formData.minScoreMedium"
+                  class="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring"
+                />
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-muted-foreground">Score max</label>
+                <input
+                  type="number"
+                  [(ngModel)]="formData.maxScoreMedium"
+                  class="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring"
+                />
+              </div>
+            </div>
+            <div class="mt-3 flex flex-col gap-1.5">
+              <label class="text-xs font-medium text-muted-foreground"
+                >Texte de r\u00e9sultat</label
+              >
+              <textarea
+                [(ngModel)]="formData.textMedium"
+                rows="2"
+                class="rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-ring"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- High Level -->
+          <div class="rounded-xl border border-border bg-card p-6">
+            <div class="mb-4 flex items-center gap-2">
+              <div class="h-3 w-3 rounded-full bg-destructive"></div>
+              <h3 class="text-sm font-semibold text-card-foreground">Niveau \u00e9lev\u00e9</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-muted-foreground">Score min</label>
+                <input
+                  type="number"
+                  [(ngModel)]="formData.minScoreHigh"
+                  class="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring"
+                />
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-medium text-muted-foreground">Score max</label>
+                <input
+                  type="number"
+                  [(ngModel)]="formData.maxScoreHigh"
+                  class="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring"
+                />
+              </div>
+            </div>
+            <div class="mt-3 flex flex-col gap-1.5">
+              <label class="text-xs font-medium text-muted-foreground"
+                >Texte de r\u00e9sultat</label
+              >
+              <textarea
+                [(ngModel)]="formData.textHigh"
+                rows="2"
+                class="rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-ring"
+              ></textarea>
+            </div>
+          </div>
+
+          <button
+            (click)="saveConfig()"
+            [disabled]="isSaving()"
+            class="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+          >
+            <mat-icon class="!text-[16px] !w-4 !h-4">save</mat-icon>
+            {{ isSaving() ? 'Enregistrement...' : 'Enregistrer la configuration' }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

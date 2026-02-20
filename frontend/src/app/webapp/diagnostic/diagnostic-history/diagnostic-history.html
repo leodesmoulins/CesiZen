@@ -1,0 +1,85 @@
+<div class="flex flex-col">
+  <app-dashboard-header title="Historique"></app-dashboard-header>
+  <div class="flex-1 p-4 md:p-6">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-foreground">Historique des diagnostics</h2>
+          <p class="text-sm text-muted-foreground">Retrouvez vos diagnostics précédents</p>
+        </div>
+        <a
+          routerLink="/diagnostic"
+          class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          <mat-icon class="!text-[16px] !w-4 !h-4">add</mat-icon>
+          Nouveau
+        </a>
+      </div>
+
+      @if (isLoading()) {
+        <div class="flex items-center justify-center py-20">
+          <div
+            class="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          ></div>
+        </div>
+      } @else if (results().length === 0) {
+        <div class="rounded-xl border border-border bg-card p-12 text-center">
+          <mat-icon class="mx-auto mb-4 text-muted-foreground/50 !text-[48px] !w-12 !h-12"
+            >assignment</mat-icon
+          >
+          <h3 class="text-lg font-medium text-foreground">Aucun diagnostic</h3>
+          <p class="mt-1 text-sm text-muted-foreground">
+            Vous n'avez pas encore effectué de diagnostic.
+          </p>
+          <a
+            routerLink="/diagnostic"
+            class="mt-4 inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Faire un diagnostic
+          </a>
+        </div>
+      } @else {
+        <div class="flex flex-col gap-3">
+          @for (result of results(); track result.id) {
+            <div class="rounded-xl border border-border bg-card p-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                    [ngClass]="getLevel(result.totalScore).bgClass"
+                  >
+                    <mat-icon
+                      [ngClass]="getLevel(result.totalScore).colorClass"
+                      class="!text-[20px] !w-5 !h-5"
+                      >assessment</mat-icon
+                    >
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-card-foreground">
+                      Score : {{ result.totalScore }} points
+                    </p>
+                    <p class="text-xs text-muted-foreground">{{ formatDate(result.createdAt) }}</p>
+                  </div>
+                </div>
+                <span
+                  class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                  [ngClass]="[
+                    getLevel(result.totalScore).bgClass,
+                    getLevel(result.totalScore).colorClass,
+                  ]"
+                >
+                  {{ getLevel(result.totalScore).label }}
+                </span>
+              </div>
+              @if (result.resultText) {
+                <p class="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  {{ result.resultText }}
+                </p>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

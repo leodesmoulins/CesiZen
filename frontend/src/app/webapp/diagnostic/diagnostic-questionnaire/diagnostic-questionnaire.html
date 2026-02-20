@@ -1,0 +1,100 @@
+<div class="flex flex-col">
+  <app-dashboard-header title="Diagnostic"></app-dashboard-header>
+  <div class="flex-1 p-4 md:p-6">
+    <div class="mx-auto max-w-2xl">
+      <!-- Progress -->
+      <div class="mb-6">
+        <div class="mb-2 flex items-center justify-between text-sm">
+          <span class="text-muted-foreground"
+            >Page {{ currentPage() + 1 }} sur {{ totalPages() }}</span
+          >
+          <span class="font-medium text-foreground">
+            Score actuel : <span class="text-primary">{{ totalScore() }}</span>
+          </span>
+        </div>
+        <div class="h-2 overflow-hidden rounded-full bg-muted">
+          <div
+            class="h-full rounded-full bg-primary transition-all"
+            [style.width.%]="progressPercent()"
+          ></div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-border bg-card">
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-card-foreground">
+            Cochez les événements que vous avez vécu au cours des 12 derniers mois
+          </h3>
+          <p class="mt-1 text-sm text-muted-foreground">
+            Sélectionnez tous les événements qui s'appliquent à votre situation.
+          </p>
+        </div>
+        <div class="px-6 pb-6">
+          <div class="flex flex-col gap-1">
+            @for (event of currentEvents(); track event.id) {
+              <label
+                class="flex cursor-pointer items-center justify-between rounded-lg px-3 py-3 transition-colors hover:bg-muted/50"
+              >
+                <div class="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected(event.id)"
+                    (change)="toggleEvent(event.id)"
+                    class="h-4 w-4 rounded border-input accent-primary"
+                  />
+                  <span class="text-sm text-foreground">{{ event.eventName }}</span>
+                </div>
+                <span
+                  class="shrink-0 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
+                >
+                  {{ event.points }} pts
+                </span>
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between">
+        <button
+          (click)="prevPage()"
+          [disabled]="currentPage() === 0"
+          class="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:opacity-50 disabled:pointer-events-none"
+        >
+          <mat-icon class="!text-[16px] !w-4 !h-4">chevron_left</mat-icon>
+          Précédent
+        </button>
+
+        @if (currentPage() < totalPages() - 1) {
+          <button
+            (click)="nextPage()"
+            class="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Suivant
+            <mat-icon class="!text-[16px] !w-4 !h-4">chevron_right</mat-icon>
+          </button>
+        } @else {
+          <button
+            (click)="showResults()"
+            class="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Voir les résultats
+            <mat-icon class="!text-[16px] !w-4 !h-4">chevron_right</mat-icon>
+          </button>
+        }
+      </div>
+
+      @if (selectedEvents().length > 0) {
+        <div
+          class="mt-4 rounded-lg bg-muted/50 px-4 py-3 text-center text-sm text-muted-foreground"
+        >
+          {{ selectedEvents().length }} événement{{
+            selectedEvents().length > 1 ? 's' : ''
+          }}
+          sélectionné{{ selectedEvents().length > 1 ? 's' : '' }} - Score total :
+          <span class="font-semibold text-primary">{{ totalScore() }} points</span>
+        </div>
+      }
+    </div>
+  </div>
+</div>
