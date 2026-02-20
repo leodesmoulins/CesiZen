@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginHeader } from './login-header';
+import { MenuManagement } from './menu-management';
 
-describe('LoginHeader', () => {
-  let component: LoginHeader;
-  let fixture: ComponentFixture<LoginHeader>;
+describe('MenuManagement', () => {
+  let component: MenuManagement;
+  let fixture: ComponentFixture<MenuManagement>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginHeader]
+      imports: [MenuManagement]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LoginHeader);
+    fixture = TestBed.createComponent(MenuManagement);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
