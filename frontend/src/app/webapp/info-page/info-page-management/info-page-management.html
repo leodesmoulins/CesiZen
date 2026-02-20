@@ -1,0 +1,79 @@
+<div>
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h2 class="text-lg font-semibold text-foreground">Gestion des contenus</h2>
+      <p class="text-sm text-muted-foreground">Modifier les pages d'information et articles.</p>
+    </div>
+    <a
+      routerLink="/admin/pages/new"
+      class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-teal-600 px-4 text-sm font-medium text-white transition-colors hover:bg-teal-700"
+    >
+      <mat-icon class="text-[16px] w-4 h-4">add</mat-icon>
+      Nouvel article
+    </a>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex items-center justify-center py-20">
+      <div
+        class="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+      ></div>
+    </div>
+  } @else if (pages().length === 0) {
+    <div class="rounded-xl border border-border bg-card p-12 text-center">
+      <mat-icon class="mx-auto mb-4 text-muted-foreground/50 text-[48px] w-12 h-12"
+        >article</mat-icon
+      >
+      <h3 class="text-lg font-medium text-foreground">Aucun article</h3>
+      <p class="mt-1 text-sm text-muted-foreground">
+        Commencez par cr\u00e9er votre premier article.
+      </p>
+    </div>
+  } @else {
+    <div class="rounded-xl border border-border bg-card">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="px-4 py-3 text-left font-medium text-muted-foreground">Titre</th>
+              <th class="px-4 py-3 text-left font-medium text-muted-foreground">Statut</th>
+              <th class="px-4 py-3 text-left font-medium text-muted-foreground">Date</th>
+              <th class="px-4 py-3 text-right font-medium text-muted-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (page of pages(); track page.id) {
+              <tr class="border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
+                <td class="px-4 py-3 font-medium text-card-foreground">{{ page.title }}</td>
+                <td class="px-4 py-3">
+                  @if (page.published) {
+                    <span
+                      class="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+                      >Publi\u00e9</span
+                    >
+                  } @else {
+                    <span
+                      class="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
+                      >Brouillon</span
+                    >
+                  }
+                </td>
+                <td class="px-4 py-3 text-muted-foreground">
+                  {{ formatDate(page.createdAt) }}
+                </td>
+                <td class="px-4 py-3 text-right">
+                  <a
+                    [routerLink]="['/admin/pages/edit', page.id]"
+                    class="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    <mat-icon class="text-[16px] w-4 h-4">edit</mat-icon>
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

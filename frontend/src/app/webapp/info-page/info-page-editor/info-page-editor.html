@@ -1,0 +1,73 @@
+<div class="flex flex-col">
+  <app-dashboard-header
+    [title]="isEditing() ? 'Modifier l\'article' : 'Nouvel article'"
+  ></app-dashboard-header>
+  <div class="flex-1 p-4 md:p-6">
+    <div class="mx-auto max-w-2xl">
+      <a
+        routerLink="/admin/pages"
+        class="mb-6 inline-flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <mat-icon class="text-[16px] w-4 h-4">arrow_back</mat-icon>
+        Retour aux articles
+      </a>
+
+      <div class="rounded-xl border border-border bg-card">
+        <div class="p-6">
+          <h3 class="text-base font-semibold text-card-foreground">
+            {{ isEditing() ? "Modifier l'article" : 'Cr\u00e9er un article' }}
+          </h3>
+        </div>
+        <div class="px-6 pb-6">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-sm font-medium text-foreground">Titre</label>
+              <input
+                type="text"
+                [(ngModel)]="title"
+                (blur)="!isEditing() && generateSlug()"
+                class="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-ring focus:ring-2 focus:ring-ring/20"
+              />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-sm font-medium text-foreground">Slug (URL)</label>
+              <input
+                type="text"
+                [(ngModel)]="slug"
+                class="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-ring focus:ring-2 focus:ring-ring/20"
+              />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-sm font-medium text-foreground">Contenu</label>
+              <textarea
+                [(ngModel)]="content"
+                rows="12"
+                class="rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-ring focus:ring-2 focus:ring-ring/20"
+              ></textarea>
+            </div>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" [(ngModel)]="published" class="h-4 w-4 accent-primary" />
+              <span class="text-sm text-foreground">Publier l'article</span>
+            </label>
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <a
+                routerLink="/admin/pages"
+                class="inline-flex h-9 items-center justify-center rounded-md border border-border px-4 text-sm font-medium text-foreground hover:bg-muted"
+              >
+                Annuler
+              </a>
+              <button
+                (click)="savePage()"
+                [disabled]="isSaving()"
+                class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+              >
+                <mat-icon class="text-[16px] w-4 h-4">save</mat-icon>
+                {{ isSaving() ? 'Enregistrement...' : 'Enregistrer' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
