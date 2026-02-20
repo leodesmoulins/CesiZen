@@ -1,1 +1,16 @@
-<p>layout works!</p>
+@if (isAuthenticated()) {
+  <div class="flex h-screen">
+    <app-sidebar></app-sidebar>
+    <div class="flex flex-1 flex-col overflow-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+} @else {
+  <div class="flex min-h-screen flex-col">
+    <app-navbar></app-navbar>
+    <main class="flex-1">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
+}
