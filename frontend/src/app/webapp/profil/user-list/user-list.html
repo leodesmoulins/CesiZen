@@ -1,0 +1,91 @@
+<div>
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h2 class="text-lg font-semibold text-foreground">Gestion des utilisateurs</h2>
+      <p class="text-sm text-muted-foreground">Créer, modifier et désactiver des comptes.</p>
+    </div>
+    <button
+      class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-teal-600 px-4 text-sm font-medium text-white transition-colors hover:bg-teal-700"
+    >
+      <mat-icon class="text-[16px] w-4 h-4">add</mat-icon>
+      Nouvel utilisateur
+    </button>
+  </div>
+
+  <div class="mb-4">
+    <div class="relative">
+      <mat-icon class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px] w-5 h-5"
+        >search</mat-icon
+      >
+      <input
+        type="text"
+        placeholder="Rechercher un utilisateur..."
+        class="h-10 w-full rounded-lg border border-gray-300 bg-white pl-10 pr-4 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+      />
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex items-center justify-center py-20">
+      <div
+        class="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent"
+      ></div>
+    </div>
+  } @else if (users().length === 0) {
+    <div class="rounded-xl border border-border bg-card p-12 text-center">
+      <mat-icon class="mx-auto mb-4 text-muted-foreground/50 text-[48px] w-12 h-12">group</mat-icon>
+      <h3 class="text-lg font-medium text-foreground">Aucun utilisateur</h3>
+    </div>
+  } @else {
+    <div class="rounded-xl border border-border bg-card">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="px-4 py-3 text-left font-medium text-muted-foreground">Utilisateur</th>
+              <th class="px-4 py-3 text-left font-medium text-muted-foreground">Email</th>
+              <th class="px-4 py-3 text-right font-medium text-muted-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of users(); track user.id) {
+              <tr class="border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
+                <td class="px-4 py-3">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary"
+                    >
+                      {{ getInitials(user) }}
+                    </div>
+                    <span class="font-medium text-card-foreground"
+                      >{{ user.firstName }} {{ user.lastName }}</span
+                    >
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-muted-foreground">{{ user.email }}</td>
+                <td class="px-4 py-3 text-right">
+                  <div class="flex items-center justify-end gap-1">
+                    <button
+                      (click)="deactivateUser(user.id)"
+                      class="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-accent"
+                      title="D\u00e9sactiver"
+                    >
+                      <mat-icon class="text-[16px] w-4 h-4">block</mat-icon>
+                    </button>
+                    <button
+                      (click)="deleteUser(user.id)"
+                      class="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                      title="Supprimer"
+                    >
+                      <mat-icon class="text-[16px] w-4 h-4">delete</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>
