@@ -1,0 +1,118 @@
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="border-b border-gray-200 bg-white px-6 py-4">
+    <h1 class="text-2xl font-bold text-gray-900">Administration</h1>
+  </div>
+
+  <div class="p-6">
+    <!-- Introduction -->
+    <div class="mb-8 flex items-start gap-4">
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-100">
+        <mat-icon class="text-teal-600">admin_panel_settings</mat-icon>
+      </div>
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900">Panneau d'administration</h2>
+        <p class="text-gray-600">Gérez les utilisateurs, contenus et diagnostics.</p>
+      </div>
+    </div>
+
+    <!-- Statistiques -->
+    @if (isLoading()) {
+      <div class="mb-8 flex justify-center">
+        <div class="h-8 w-8 animate-spin rounded-full border-b-2 border-teal-600"></div>
+      </div>
+    } @else if (stats()) {
+      <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <!-- Utilisateurs -->
+        <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-sm text-gray-600">Utilisateurs</p>
+              <p class="text-3xl font-bold text-gray-900">{{ stats()!.totalUsers }}</p>
+            </div>
+            <div class="rounded-lg bg-teal-100 p-3">
+              <mat-icon class="text-teal-600">group</mat-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- Articles -->
+        <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-sm text-gray-600">Articles</p>
+              <p class="text-3xl font-bold text-gray-900">{{ stats()!.totalArticles }}</p>
+            </div>
+            <div class="rounded-lg bg-orange-100 p-3">
+              <mat-icon class="text-orange-600">menu_book</mat-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evenements diag. -->
+        <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-sm text-gray-600">Evenements diag.</p>
+              <p class="text-3xl font-bold text-gray-900">{{ stats()!.totalDiagnosticEvents }}</p>
+            </div>
+            <div class="rounded-lg bg-blue-100 p-3">
+              <mat-icon class="text-blue-600">assignment</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Onglets -->
+    <div class="mb-6 flex gap-2 border-b border-gray-200">
+      <button
+        (click)="setActiveTab('users')"
+        [class.border-teal-600]="isTabActive('users')"
+        [class.text-teal-600]="isTabActive('users')"
+        [class.text-gray-600]="!isTabActive('users')"
+        class="flex items-center gap-2 border-b-2 border-transparent px-4 py-3 text-sm font-medium transition-colors hover:text-teal-600"
+      >
+        <mat-icon class="h-5 w-5 text-[20px]">group</mat-icon>
+        Utilisateurs
+      </button>
+
+      <button
+        (click)="setActiveTab('content')"
+        [class.border-teal-600]="isTabActive('content')"
+        [class.text-teal-600]="isTabActive('content')"
+        [class.text-gray-600]="!isTabActive('content')"
+        class="flex items-center gap-2 border-b-2 border-transparent px-4 py-3 text-sm font-medium transition-colors hover:text-teal-600"
+      >
+        <mat-icon class="h-5 w-5 text-[20px]">menu_book</mat-icon>
+        Contenus
+      </button>
+
+      <button
+        (click)="setActiveTab('diagnostic')"
+        [class.border-teal-600]="isTabActive('diagnostic')"
+        [class.text-teal-600]="isTabActive('diagnostic')"
+        [class.text-gray-600]="!isTabActive('diagnostic')"
+        class="flex items-center gap-2 border-b-2 border-transparent px-4 py-3 text-sm font-medium transition-colors hover:text-teal-600"
+      >
+        <mat-icon class="h-5 w-5 text-[20px]">assignment</mat-icon>
+        Diagnostic
+      </button>
+    </div>
+
+    <!-- Contenu des onglets -->
+    <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+      @switch (activeTab()) {
+        @case ('users') {
+          <app-user-list></app-user-list>
+        }
+        @case ('content') {
+          <app-info-page-management></app-info-page-management>
+        }
+        @case ('diagnostic') {
+          <app-diagnostic-question-management></app-diagnostic-question-management>
+        }
+      }
+    </div>
+  </div>
+</div>
