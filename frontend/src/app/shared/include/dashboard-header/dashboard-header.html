@@ -1,0 +1,43 @@
+<header class="flex h-14 items-center gap-4 border-b border-border bg-background px-4">
+  <h1 class="font-display text-lg font-semibold text-foreground">{{ title() }}</h1>
+
+  <div class="ml-auto relative">
+    <button
+      (click)="toggleMenu()"
+      class="flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-ring"
+    >
+      <div
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground"
+      >
+        {{ userInitials }}
+      </div>
+    </button>
+
+    @if (menuOpen()) {
+      <div
+        class="absolute right-0 top-full mt-2 w-48 rounded-md border border-border bg-card shadow-lg z-50"
+      >
+        <div class="px-3 py-2 border-b border-border">
+          <p class="text-sm font-medium text-foreground">{{ displayName }}</p>
+          <p class="text-xs text-muted-foreground">{{ displayEmail }}</p>
+        </div>
+        <a
+          routerLink="/profile"
+          class="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+          (click)="toggleMenu()"
+        >
+          <mat-icon class="!text-[16px] !w-4 !h-4">person</mat-icon>
+          Mon profil
+        </a>
+        <div class="border-t border-border"></div>
+        <button
+          (click)="onLogout()"
+          class="flex w-full items-center gap-2 px-3 py-2 text-sm text-destructive hover:bg-muted transition-colors"
+        >
+          <mat-icon class="!text-[16px] !w-4 !h-4">logout</mat-icon>
+          Déconnexion
+        </button>
+      </div>
+    }
+  </div>
+</header>

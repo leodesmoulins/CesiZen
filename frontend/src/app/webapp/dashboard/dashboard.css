@@ -1,0 +1,38 @@
+/* Styles personnalisés pour le dashboard */
+mat-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+}
+
+mat-progress-bar ::ng-deep .mdc-linear-progress__bar-inner {
+  border-radius: 4px;
+}
+
+/* Style pour les barres de progression avec couleur teal */
+mat-progress-bar ::ng-deep .mdc-linear-progress__bar-inner {
+  background-color: #14b8a6 !important;
+}
+
+mat-progress-bar ::ng-deep .mdc-linear-progress__buffer {
+  background-color: #e5e7eb !important;
+}
+
+/* Animation au survol des cartes */
+.hover\:shadow-md:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Style pour les icônes Material */
+mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
