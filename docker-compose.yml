@@ -14,7 +14,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - cesi_net
+      - asmd_net
     depends_on:
       - postgresdb
 
@@ -26,7 +26,7 @@ services:
     ports:
       - "4200:4200"
     networks:
-      - cesi_net
+      - asmd_net
     volumes:
       - ./frontend:/home/app
       - /home/app/node_modules
@@ -43,12 +43,15 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
     volumes:
-      - ./postgres_data_container:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
-      - cesi_net
+      - asmd_net
+
+volumes:
+  postgres_data:
 
 networks:
-  cesi_net:
+  asmd_net:
     driver: bridge
